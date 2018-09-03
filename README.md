@@ -1,2 +1,5 @@
-# math-exercises
-Making some addition/subtraction problems for my 6 year old son
+# Math Exercises
+
+>  Some gradeschool math(addition) exercises (worksheet) for my kids
+
+
