@@ -1,25 +1,43 @@
+import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles"
+import { withStyles } from "@material-ui/core/styles"
+import CssBaseline from "@material-ui/core/CssBaseline"
 import React, { Component } from "react"
-import logo from "./logo.svg"
 
+import Footer from "./components/Footer"
+import Header from "./components/Header"
+import Hero from "./components/Hero"
 import Problems from "./components/Problems"
 
-import "./App.css"
-
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to Dom's Math Exercises</h1>
-        </header>
-
-        <h1>Find the Sums</h1>
-
-        <Problems min={1} max={10} operators={["+"]} total={3} />
-      </div>
-    )
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#d32f2f"
+    },
+    secondary: {
+      main: "#039be5"
+    }
   }
-}
+})
 
-export default App
+export default withStyles()(
+  class App extends Component {
+    render() {
+      const { classes } = this.props
+
+      return (
+        <MuiThemeProvider theme={theme}>
+          <CssBaseline />
+
+          <Header />
+
+          <main>
+            <Hero />
+            <Problems min={1} max={10} operators={["+"]} total={10} />
+          </main>
+
+          <Footer />
+        </MuiThemeProvider>
+      )
+    }
+  }
+)
