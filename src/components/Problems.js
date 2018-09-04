@@ -1,6 +1,7 @@
 import { random, sample } from "lodash"
 import { withStyles } from "@material-ui/core/styles"
 import Button from "@material-ui/core/Button"
+import classNames from "classnames"
 import Confetti from "react-confetti"
 import Grid from "@material-ui/core/Grid"
 import Paper from "@material-ui/core/Paper"
@@ -15,7 +16,25 @@ const music = new Audio("./BotW - Hestu's Dance.flac")
 music.addEventListener("ended", () => pop.play())
 
 const styles = (theme) => ({
-  root: {
+  card: {
+    height: "100%",
+    display: "flex",
+    flexDirection: "column"
+  },
+  cardGrid: {
+    padding: `${theme.spacing.unit * 8}px 0`
+  },
+  layout: {
+    width: "auto",
+    marginLeft: theme.spacing.unit * 3,
+    marginRight: theme.spacing.unit * 3,
+    [theme.breakpoints.up(1100 + theme.spacing.unit * 3 * 2)]: {
+      width: 1100,
+      marginLeft: "auto",
+      marginRight: "auto"
+    }
+  },
+  paper: {
     ...theme.mixins.gutters(),
     marginBottom: theme.spacing.unit * 2,
     paddingTop: theme.spacing.unit * 2,
@@ -64,14 +83,14 @@ export default withStyles(styles)(
       const success = correct === total
 
       return (
-        <div>
+        <div className={classNames(classes.layout, classes.cardGrid)}>
           <form
             autoComplete="off"
             className={classes.container}
             noValidate
             onReset={this.handleReset}
           >
-            <Paper className={classes.root} elevation={1}>
+            <Paper className={classes.paper} elevation={1}>
               <Typography component="h3" variant="headline" gutterBottom>
                 Solve {total} Problems
                 {correct ? (
@@ -93,6 +112,7 @@ export default withStyles(styles)(
                 ))}
               </Grid>
             </Paper>
+
             <Button variant="outlined" type="reset">
               Reload
             </Button>
