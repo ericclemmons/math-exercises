@@ -81,7 +81,7 @@ export default withStyles(styles)(
                 ) : null}
               </Typography>
 
-              <Grid container spacing={16}>
+              <Grid container spacing={40}>
                 {statements.map((statement, i) => (
                   <Grid item key={`${i}-${statement}`} sm={6} md={4} lg={3}>
                     <Problem

@@ -25,12 +25,6 @@ const theme = createMuiTheme({
 })
 
 const styles = (theme) => ({
-  appBar: {
-    position: "relative"
-  },
-  icon: {
-    marginRight: theme.spacing.unit * 2
-  },
   heroUnit: {
     backgroundColor: theme.palette.background.paper
   },
@@ -59,12 +53,6 @@ const styles = (theme) => ({
     height: "100%",
     display: "flex",
     flexDirection: "column"
-  },
-  cardMedia: {
-    paddingTop: "56.25%" // 16:9
-  },
-  cardContent: {
-    flexGrow: 1
   },
   footer: {
     backgroundColor: theme.palette.background.paper,
@@ -139,7 +127,7 @@ export default withStyles(styles)(
             </div>
 
             <div className={classNames(classes.layout, classes.cardGrid)}>
-              <Problems min={1} max={10} operators={["+"]} total={4} />
+              <Problems min={1} max={10} operators={["+"]} total={10} />
             </div>
           </main>
 

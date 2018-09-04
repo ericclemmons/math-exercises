@@ -1,15 +1,10 @@
-import { withStyles } from "@material-ui/core/styles"
-import Confetti from "react-dom-confetti"
-import InputAdornment from "@material-ui/core/InputAdornment"
-import React, { Component } from "react"
 import TextField from "@material-ui/core/TextField"
+import { withStyles } from "@material-ui/core/styles"
+import React, { Component } from "react"
+import InputAdornment from "@material-ui/core/InputAdornment"
+import Confetti from "react-dom-confetti"
 
-const styles = (theme) => ({
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit
-  }
-})
+const styles = (theme) => ({})
 
 export default withStyles(styles)(
   class Problem extends Component {
@@ -52,7 +47,7 @@ export default withStyles(styles)(
     }
 
     render() {
-      const { autoFocus, classes, statement } = this.props
+      const { autoFocus, statement } = this.props
       const { correct, value } = this.state
 
       const formatted = statement
@@ -77,8 +72,8 @@ export default withStyles(styles)(
           <TextField
             autoFocus={autoFocus}
             disabled={correct}
-            className={classes.textField}
             error={value && !correct}
+            fullWidth
             inputRef={this.inputRef}
             InputProps={{
               startAdornment: (
