@@ -2,6 +2,8 @@ import React, { Component } from "react"
 import Confetti from "react-dom-confetti"
 
 export default class Problem extends Component {
+  inputRef = React.createRef()
+
   state = {
     answer: null,
     correct: null,
@@ -18,12 +20,17 @@ export default class Problem extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { onSuccess = () => {} } = this.props
+    const { autoFocus, onSuccess = () => {} } = this.props
     const { correct } = this.state
+    const { current } = this.inputRef
 
     // You can only pop once
     if (correct && !prevState.correct) {
       onSuccess(this)
+    }
+
+    if (autoFocus && current) {
+      current.focus()
     }
   }
 
@@ -34,7 +41,7 @@ export default class Problem extends Component {
   }
 
   render() {
-    const { statement } = this.props
+    const { autoFocus, statement } = this.props
     const { correct, value } = this.state
 
     const formatted = statement
@@ -53,10 +60,11 @@ export default class Problem extends Component {
         <fieldset>
           {formatted} ={" "}
           <input
-            autoFocus
+            autoFocus={autoFocus}
             disabled={correct}
             onChange={this.handleChange}
             readOnly={correct}
+            ref={this.inputRef}
           />{" "}
           {value ? (correct ? "🎉" : "🤔") : null}
         </fieldset>
