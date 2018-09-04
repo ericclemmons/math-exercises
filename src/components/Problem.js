@@ -1,6 +1,8 @@
 import React, { Component } from "react"
 import Confetti from "react-dom-confetti"
 
+const pop = new Audio("./BotW - Hestu's Dance Pop.flac")
+
 export default class Problem extends Component {
   state = {
     answer: null,
@@ -17,7 +19,15 @@ export default class Problem extends Component {
     return { answer, correct, value }
   }
 
-  handleChange = event => {
+  componentDidUpdate() {
+    const { correct } = this.state
+
+    if (correct) {
+      pop.play()
+    }
+  }
+
+  handleChange = (event) => {
     const { value } = event.target
 
     this.setState({ value })
@@ -30,9 +40,9 @@ export default class Problem extends Component {
     const formatted = statement
       .split("")
       .filter(Boolean)
-      .map(character => {
+      .map((character, i) => {
         if (character.match(/\d+/)) {
-          return <strong>{character}</strong>
+          return <strong key={`${i}-${character}`}>{character}</strong>
         }
 
         return character
