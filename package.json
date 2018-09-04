@@ -5,6 +5,7 @@
   "dependencies": {
     "lodash": "^4.17.10",
     "react": "^16.4.2",
+    "react-confetti": "^2.3.0",
     "react-dom": "^16.4.2",
     "react-dom-confetti": "^0.0.10",
     "react-scripts": "1.1.5"

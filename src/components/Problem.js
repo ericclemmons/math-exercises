@@ -1,8 +1,6 @@
 import React, { Component } from "react"
 import Confetti from "react-dom-confetti"
 
-const pop = new Audio("./BotW - Hestu's Dance Pop.flac")
-
 export default class Problem extends Component {
   state = {
     answer: null,
@@ -19,11 +17,13 @@ export default class Problem extends Component {
     return { answer, correct, value }
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
+    const { onSuccess = () => {} } = this.props
     const { correct } = this.state
 
-    if (correct) {
-      pop.play()
+    // You can only pop once
+    if (correct && !prevState.correct) {
+      onSuccess(this)
     }
   }
 
@@ -51,7 +51,13 @@ export default class Problem extends Component {
     return (
       <form>
         <fieldset>
-          {formatted} = <input autoFocus onChange={this.handleChange} />{" "}
+          {formatted} ={" "}
+          <input
+            autoFocus
+            disabled={correct}
+            onChange={this.handleChange}
+            readOnly={correct}
+          />{" "}
           {value ? (correct ? "🎉" : "🤔") : null}
         </fieldset>
 
