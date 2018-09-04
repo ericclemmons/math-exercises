@@ -34,7 +34,7 @@ export default class Problem extends Component {
   }
 
   render() {
-    const { statement } = this.props
+    const { autoFocus, statement } = this.props
     const { correct, value } = this.state
 
     const formatted = statement
@@ -53,7 +53,7 @@ export default class Problem extends Component {
         <fieldset>
           {formatted} ={" "}
           <input
-            autoFocus
+            autoFocus={autoFocus}
             disabled={correct}
             onChange={this.handleChange}
             readOnly={correct}

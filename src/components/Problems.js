@@ -48,6 +48,7 @@ export default class Problems extends PureComponent {
       <div>
         {statements.map((statement, i) => (
           <Problem
+            autoFocus={i === correct}
             key={`${i}-${statement}`}
             onSuccess={this.handleSuccess}
             statement={statement}
