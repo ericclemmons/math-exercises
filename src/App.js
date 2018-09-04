@@ -8,11 +8,13 @@ import Problem from "./components/Problem"
 class App extends Component {
   render() {
     const limit = 10
-    const problems = [...new Array(10)].map(() => {
+    const problems = [...new Array(10)].map((_, i) => {
       const first = random(1, limit - 1)
       const remainder = random(1, limit - first)
+      const statement = `${first} + ${remainder}`
+      const key = `${i}-${statement}`
 
-      return <Problem statement={`${first} + ${remainder}`} />
+      return <Problem key={key} statement={statement} />
     })
 
     return (

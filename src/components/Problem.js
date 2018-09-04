@@ -30,9 +30,9 @@ export default class Problem extends Component {
     const formatted = statement
       .split("")
       .filter(Boolean)
-      .map(character => {
+      .map((character, i) => {
         if (character.match(/\d+/)) {
-          return <strong>{character}</strong>
+          return <strong key={`${i}-${character}`}>{character}</strong>
         }
 
         return character
