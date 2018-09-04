@@ -76,7 +76,7 @@ export default withStyles(styles)(
                 Solve {total} Problems
                 {correct ? (
                   <Typography variant="caption">
-                    {total - correct} left
+                    {success ? "All done!" : `${total - correct} left`}
                   </Typography>
                 ) : null}
               </Typography>
