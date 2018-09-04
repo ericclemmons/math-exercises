@@ -1,5 +1,4 @@
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles"
-import { withStyles } from "@material-ui/core/styles"
 import CssBaseline from "@material-ui/core/CssBaseline"
 import React, { Component } from "react"
 
@@ -19,25 +18,19 @@ const theme = createMuiTheme({
   }
 })
 
-export default withStyles()(
-  class App extends Component {
-    render() {
-      const { classes } = this.props
+export default function App() {
+  return (
+    <MuiThemeProvider theme={theme}>
+      <CssBaseline />
 
-      return (
-        <MuiThemeProvider theme={theme}>
-          <CssBaseline />
+      <Header />
 
-          <Header />
+      <main>
+        <Hero />
+        <Problems min={1} max={10} operators={["+"]} total={10} />
+      </main>
 
-          <main>
-            <Hero />
-            <Problems min={1} max={10} operators={["+"]} total={10} />
-          </main>
-
-          <Footer />
-        </MuiThemeProvider>
-      )
-    }
-  }
-)
+      <Footer />
+    </MuiThemeProvider>
+  )
+}
