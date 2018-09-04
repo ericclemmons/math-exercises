@@ -8,8 +8,8 @@ export default class Problem extends Component {
   }
 
   static getDerivedStateFromProps(props, state = {}) {
-    const { children } = props
-    const answer = new Function(`return ${children}`)()
+    const { statement } = props
+    const answer = new Function(`return ${statement}`)()
     const { value } = state
     const correct = value == answer
 
@@ -23,10 +23,10 @@ export default class Problem extends Component {
   }
 
   render() {
-    const { children } = this.props
+    const { statement } = this.props
     const { correct, value } = this.state
 
-    const formatted = children
+    const formatted = statement
       .split("")
       .filter(Boolean)
       .map(character => {

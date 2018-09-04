@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import { random } from "lodash"
 import logo from "./logo.svg"
 
 import "./App.css"
@@ -6,6 +7,14 @@ import Problem from "./components/Problem"
 
 class App extends Component {
   render() {
+    const limit = 10
+    const problems = [...new Array(10)].map(() => {
+      const first = random(1, limit - 1)
+      const remainder = random(1, limit - first)
+
+      return <Problem statement={`${first} + ${remainder}`} />
+    })
+
     return (
       <div className="App">
         <header className="App-header">
@@ -15,7 +24,7 @@ class App extends Component {
 
         <h1>Find the Sums</h1>
 
-        <Problem>2 + 3</Problem>
+        {problems}
       </div>
     )
   }
