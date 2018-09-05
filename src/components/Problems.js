@@ -9,6 +9,7 @@ import React, { PureComponent } from "react"
 import Typography from "@material-ui/core/Typography"
 
 import Problem from "./Problem"
+import Settings from "./Settings"
 
 const pop = new Audio("./BotW - Hestu's Dance Pop.flac")
 
@@ -42,17 +43,29 @@ const styles = (theme) => ({
   }
 })
 
+const defaultSettings = {
+  min: 1,
+  max: 10,
+  operators: ["+"],
+  total: 10
+}
+
+const createStatements = ({ min, max, operators, total }) => {
+  return [...new Array(total)].map((_, i) => {
+    const operator = sample(operators)
+    const first = random(min, max - 1)
+    const remainder = random(1, max - first)
+
+    return `${first} ${operator} ${remainder}`
+  })
+}
+
 export default withStyles(styles)(
   class Problems extends PureComponent {
     state = {
       correct: 0,
-      statements: [...new Array(this.props.total)].map((_, i) => {
-        const operator = sample(this.props.operators)
-        const first = random(this.props.min, this.props.max - 1)
-        const remainder = random(1, this.props.max - first)
-
-        return `${first} ${operator} ${remainder}`
-      })
+      settings: defaultSettings,
+      statements: createStatements(defaultSettings)
     }
 
     componentDidUpdate() {
@@ -73,13 +86,17 @@ export default withStyles(styles)(
       window.location.reload()
     }
 
+    handleSettings = (settings) => {
+      this.setState({ settings })
+    }
+
     handleSuccess = () => {
       this.setState({ correct: this.state.correct + 1 })
     }
 
     render() {
       const { classes, total } = this.props
-      const { correct, statements } = this.state
+      const { correct, settings, statements } = this.state
       const success = correct === total
 
       return (
@@ -91,6 +108,8 @@ export default withStyles(styles)(
             onReset={this.handleReset}
           >
             <Paper className={classes.paper} elevation={1}>
+              <Settings {...settings} onChange={this.handleSettings} />
+
               <Typography component="h3" variant="headline" gutterBottom>
                 Solve {total} Problems
                 {correct ? (
