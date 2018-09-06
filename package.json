@@ -17,7 +17,7 @@
   },
   "scripts": {
     "deploy": "now",
-    "release": "np",
+    "release": "CI=true np",
     "postrelease": "$_ run deploy",
     "start": "react-scripts start",
     "build": "react-scripts build",
