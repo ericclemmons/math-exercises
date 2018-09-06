@@ -1,6 +1,6 @@
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles"
 import CssBaseline from "@material-ui/core/CssBaseline"
-import React, { Component } from "react"
+import React from "react"
 
 import Footer from "./components/Footer"
 import Header from "./components/Header"
@@ -27,7 +27,7 @@ export default function App() {
 
       <main>
         <Hero />
-        <Problems min={1} max={10} operators={["+"]} total={10} />
+        <Problems />
       </main>
 
       <Footer />
