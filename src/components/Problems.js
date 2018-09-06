@@ -1,18 +1,18 @@
-import { random, sample } from "lodash"
+import { observer } from "mobx-react"
 import { withStyles } from "@material-ui/core/styles"
 import Button from "@material-ui/core/Button"
 import classNames from "classnames"
 import Confetti from "react-confetti"
 import Grid from "@material-ui/core/Grid"
 import Paper from "@material-ui/core/Paper"
-import React, { PureComponent } from "react"
+import React from "react"
 import Typography from "@material-ui/core/Typography"
 
 import Problem from "./Problem"
 import Settings from "./Settings"
+import { state } from "../State"
 
 const pop = new Audio("./BotW - Hestu's Dance Pop.flac")
-
 const music = new Audio("./BotW - Hestu's Dance.flac")
 music.addEventListener("ended", () => pop.play())
 
@@ -43,108 +43,57 @@ const styles = (theme) => ({
   }
 })
 
-const defaultSettings = {
-  min: 1,
-  max: 10,
-  operators: ["+"],
-  total: 10
-}
+export function Problems({ classes }) {
+  return (
+    <div className={classNames(classes.layout, classes.cardGrid)}>
+      <form
+        autoComplete="off"
+        className={classes.container}
+        noValidate
+        onReset={window.location.reload}
+      >
+        <Paper className={classes.paper} elevation={1}>
+          <Settings />
 
-const createStatements = ({ min, max, operators, total }) => {
-  return [...new Array(total)].map((_, i) => {
-    const operator = sample(operators)
-    const first = random(min, max - 1)
-    const remainder = random(1, max - first)
-
-    return `${first} ${operator} ${remainder}`
-  })
-}
-
-export default withStyles(styles)(
-  class Problems extends PureComponent {
-    state = {
-      correct: 0,
-      settings: defaultSettings,
-      statements: createStatements(defaultSettings)
-    }
-
-    componentDidUpdate() {
-      const { onSuccess = () => {}, total } = this.props
-      const { correct } = this.state
-
-      pop.pause()
-      pop.currentTime = 0
-      pop.play()
-
-      if (correct === total) {
-        music.play()
-        onSuccess()
-      }
-    }
-
-    handleReset = () => {
-      window.location.reload()
-    }
-
-    handleSettings = (settings) => {
-      this.setState({ settings })
-    }
-
-    handleSuccess = () => {
-      this.setState({ correct: this.state.correct + 1 })
-    }
-
-    render() {
-      const { classes, total } = this.props
-      const { correct, settings, statements } = this.state
-      const success = correct === total
-
-      return (
-        <div className={classNames(classes.layout, classes.cardGrid)}>
-          <form
-            autoComplete="off"
-            className={classes.container}
-            noValidate
-            onReset={this.handleReset}
-          >
-            <Paper className={classes.paper} elevation={1}>
-              <Settings {...settings} onChange={this.handleSettings} />
-
-              <Typography component="h3" variant="headline" gutterBottom>
-                Solve {total} Problems
-                {correct ? (
-                  <Typography variant="caption">
-                    {success ? "All done!" : `${total - correct} left`}
-                  </Typography>
-                ) : null}
+          <Typography component="h3" variant="headline" gutterBottom>
+            Solve {state.total} Problems
+            {state.correct.length ? (
+              <Typography variant="caption">
+                {state.remaining
+                  ? `${state.total - state.correct} left`
+                  : "All done!"}
               </Typography>
+            ) : null}
+          </Typography>
 
-              <Grid container spacing={40}>
-                {statements.map((statement, i) => (
-                  <Grid item key={`${i}-${statement}`} sm={6} md={4} lg={3}>
-                    <Problem
-                      autoFocus={i === correct}
-                      onSuccess={this.handleSuccess}
-                      statement={statement}
-                    />
-                  </Grid>
-                ))}
+          <Grid container spacing={40}>
+            {state.statements.map((statement, i) => (
+              <Grid item key={`${i}-${statement}`} sm={6} md={4} lg={3}>
+                <Problem
+                  autoFocus={i === state.correct.length}
+                  onSuccess={() => {
+                    state.correct.push(statement)
+                  }}
+                  statement={statement}
+                />
               </Grid>
-            </Paper>
+            ))}
+          </Grid>
+        </Paper>
 
-            <Button variant="outlined" type="reset">
-              Reload
-            </Button>
-          </form>
+        <Button variant="outlined" type="reset">
+          Reload
+        </Button>
+      </form>
 
-          <Confetti
-            height={window.innerWidth}
-            numberOfPieces={100}
-            run={success}
-            width={window.innerWidth}
-          />
-        </div>
-      )
-    }
-  }
-)
+      <Confetti
+        height={window.innerWidth}
+        numberOfPieces={100}
+        run={!state.remaining}
+        width={window.innerWidth}
+      />
+    </div>
+  )
+}
+
+export default withStyles(styles)(observer(Problems))
