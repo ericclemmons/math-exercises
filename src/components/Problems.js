@@ -12,10 +12,6 @@ import Problem from "./Problem"
 import Settings from "./Settings"
 import { state } from "../State"
 
-const pop = new Audio("./BotW - Hestu's Dance Pop.flac")
-const music = new Audio("./BotW - Hestu's Dance.flac")
-music.addEventListener("ended", () => pop.play())
-
 const styles = (theme) => ({
   card: {
     height: "100%",
@@ -50,7 +46,7 @@ export function Problems({ classes }) {
         autoComplete="off"
         className={classes.container}
         noValidate
-        onReset={window.location.reload}
+        onReset={() => window.location.reload()}
       >
         <Paper className={classes.paper} elevation={1}>
           <Settings />
@@ -73,6 +69,14 @@ export function Problems({ classes }) {
                   autoFocus={i === state.correct.length}
                   onSuccess={() => {
                     state.correct.push(statement)
+
+                    // Yay!
+                    new Audio("./BotW - Hestu's Dance Pop.flac").play()
+
+                    // Celebrate!
+                    if (!state.remaining) {
+                      new Audio("./BotW - Hestu's Dance.flac").play()
+                    }
                   }}
                   statement={statement}
                 />
