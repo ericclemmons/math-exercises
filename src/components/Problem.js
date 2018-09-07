@@ -58,22 +58,16 @@ export default withStyles(styles)(
             return <strong key={`${i}-${character}`}>{character}</strong>
           }
 
-          if (character === "-") {
-            return <span>&minus;</span>
-          }
-
-          if (character === "*") {
-            return <span>&times;</span>
-          }
-
-          if (character === "/") {
-            return <span>&divide;</span>
-          }
-
           return (
             <span key={`${i}-${character}`}>
               &nbsp;
-              {character}
+              {(() => {
+                if (character === "-") return "−"
+                if (character === "*") return "×"
+                if (character === "/") return "÷"
+
+                return character
+              })()}
               &nbsp;
             </span>
           )
@@ -84,7 +78,7 @@ export default withStyles(styles)(
           <TextField
             autoFocus={autoFocus}
             disabled={correct}
-            error={value && !correct}
+            error={value ? !correct : false}
             fullWidth
             inputRef={this.inputRef}
             InputProps={{
