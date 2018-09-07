@@ -90,12 +90,14 @@ export function Problems({ classes }) {
         </Button>
       </form>
 
-      <Confetti
-        height={window.innerWidth}
-        numberOfPieces={100}
-        run={!state.remaining}
-        width={window.innerWidth}
-      />
+      {state.remaining === 0 && (
+        <Confetti
+          height={window.innerWidth}
+          numberOfPieces={100}
+          run={true}
+          width={window.innerWidth}
+        />
+      )}
     </div>
   )
 }
