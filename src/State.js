@@ -14,7 +14,9 @@ const State = decorate(
     total = 6
 
     get remaining() {
-      return this.total - this.correct.length
+      return this.statements.filter(
+        (statement) => !this.correct.includes(statement)
+      ).length
     }
 
     get statements() {
