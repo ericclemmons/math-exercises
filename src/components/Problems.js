@@ -46,7 +46,7 @@ export function Problems({ classes }) {
         autoComplete="off"
         className={classes.container}
         noValidate
-        onReset={window.location.reload}
+        onReset={() => window.location.reload()}
       >
         <Paper className={classes.paper} elevation={1}>
           <Settings />
