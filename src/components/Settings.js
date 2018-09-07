@@ -87,12 +87,12 @@ export function Settings({ classes }) {
               TransitionComponent={Zoom}
             >
               <Slider
-                min={5}
-                max={100}
+                min={6}
+                max={60}
                 onChange={(event, total) => {
                   state.total = total
                 }}
-                step={5}
+                step={6}
                 value={state.total}
               />
             </Tooltip>

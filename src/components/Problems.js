@@ -64,7 +64,7 @@ export function Problems({ classes }) {
 
           <Grid container spacing={40}>
             {state.statements.map((statement, i) => (
-              <Grid item key={`${i}-${statement}`} sm={6} md={4} lg={3}>
+              <Grid item key={`${i}-${statement}`} sm={4} md={2} lg={2}>
                 <Problem
                   autoFocus={i === state.correct.length}
                   onSuccess={() => {

@@ -11,7 +11,7 @@ const State = decorate(
     min = 1
     max = 10
     operators = ["+"]
-    total = 10
+    total = 6
 
     get remaining() {
       return this.total - this.correct.length
