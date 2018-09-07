@@ -78,7 +78,7 @@ export default withStyles(styles)(
           <TextField
             autoFocus={autoFocus}
             disabled={correct}
-            error={value && !correct}
+            error={value ? !correct : false}
             fullWidth
             inputRef={this.inputRef}
             InputProps={{
