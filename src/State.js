@@ -13,6 +13,12 @@ const State = decorate(
     operators = ["+"]
     total = 6
 
+    get nextStatement() {
+      return this.statements.find(
+        (statement) => !this.correct.includes(statement)
+      )
+    }
+
     get remaining() {
       return this.statements.filter(
         (statement) => !this.correct.includes(statement)
