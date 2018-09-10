@@ -66,7 +66,7 @@ export function Problems({ classes }) {
             {state.statements.map((statement, i) => (
               <Grid item key={`${i}-${statement}`} sm={4} md={2} lg={2}>
                 <Problem
-                  autoFocus={i === state.correct.length}
+                  autoFocus={statement === state.nextStatement}
                   onSuccess={() => {
                     state.correct.push(statement)
 
