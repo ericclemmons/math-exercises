@@ -55,9 +55,7 @@ export function Problems({ classes }) {
             Solve {state.total} Problems
             {state.correct.length ? (
               <Typography variant="caption">
-                {state.remaining
-                  ? `${state.total - state.correct} left`
-                  : "All done!"}
+                {state.remaining ? `${state.remaining} left` : "All done!"}
               </Typography>
             ) : null}
           </Typography>
